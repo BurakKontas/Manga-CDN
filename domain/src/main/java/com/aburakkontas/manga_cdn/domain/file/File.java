@@ -15,13 +15,10 @@ import java.util.zip.Inflater;
 @Entity
 @Table(name = "files")
 @Data
-@Builder
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class File {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
 
@@ -34,8 +31,19 @@ public class File {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "data", length = 2000000000)
-    @Getter(AccessLevel.PRIVATE)
     private byte[] data;
+
+    public File(UUID fileId, String fileName, byte[] fileData, FileContentType fileContentType, UUID ownerId) {
+        this.id = fileId;
+        this.name = fileName;
+        this.data = compressFile(fileData, 0);
+        this.contentType = fileContentType;
+        this.ownerId = ownerId;
+    }
+
+    public byte[] getData() {
+        return decompressFile(this.data, 0);
+    }
 
     public String getFileExtension() {
         return this.contentType.getExtension();
@@ -43,26 +51,6 @@ public class File {
 
     public String getContentType() {
         return this.contentType.getContentType();
-    }
-
-    public void setMultipartFile(MultipartFile file) throws IOException {
-        this.name = file.getOriginalFilename();
-        this.contentType = FileContentType.fromExtension(getFileExtensionFromName(file.getOriginalFilename()));
-        this.data = compressFile(file.getBytes(), 0);
-    }
-
-    public MultipartFile getMultipartFile() {
-        byte[] decompressedData = decompressFile(this.data, 0);
-        MultipartFile multipartFile = new MockMultipartFile(this.name, decompressedData);
-        return multipartFile;
-    }
-
-    private String getFileExtensionFromName(String fileName) {
-        if (fileName != null && fileName.contains(".")) {
-            return fileName.substring(fileName.lastIndexOf('.') + 1);
-        } else {
-            throw new IllegalArgumentException("Invalid file name: " + fileName);
-        }
     }
 
     private int DEFAULT_TMP_SIZE = 20 * 1024 * 1024;

@@ -23,13 +23,13 @@ public class FileQueryHandler {
     private final FileRepository fileRepository;
 
     @QueryHandler
-    public GetFileQueryResult getFile(GetFileQuery query) throws IOException {
+    public GetFileQueryResult getFile(GetFileQuery query) {
         var file = fileRepository.findById(query.getFileId()).orElseThrow(() -> new ExceptionWithErrorCode("File not found", 404));
 
         var queryResult = new GetFileQueryResult();
-        queryResult.setFile(file.getMultipartFile().getBytes());
+        queryResult.setFile(file.getData());
         queryResult.setFileName(file.getName());
-        queryResult.setFileType(file.getMultipartFile().getContentType());
+        queryResult.setFileType(file.getContentType());
 
         return queryResult;
     }
@@ -63,10 +63,10 @@ public class FileQueryHandler {
 
     private GetFileDetailsQueryResult getFileDetails(File file) {
         var fileDetails = new GetFileDetailsQueryResult();
-        fileDetails.setSize(file.getMultipartFile().getSize());
+        fileDetails.setSize(file.getData().length);
         fileDetails.setOwnerId(file.getOwnerId());
         fileDetails.setFileName(file.getName());
-        fileDetails.setFileType(file.getMultipartFile().getContentType());
+        fileDetails.setFileType(file.getContentType());
         fileDetails.setFileId(file.getId());
 
         return fileDetails;

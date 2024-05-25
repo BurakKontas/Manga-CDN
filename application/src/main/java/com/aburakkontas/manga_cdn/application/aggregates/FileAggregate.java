@@ -43,22 +43,24 @@ public class FileAggregate {
     @EventSourcingHandler
     public void on(FileUploadedEvent event) {
         this.fileId = event.getFileId();
-        this.file = File.builder()
-                .data(event.getFileData())
-                .name(event.getFileName())
-                .contentType(FileContentType.fromExtension(event.getFileType()))
-                .ownerId(event.getOwnerId())
-                .build();
+        this.file = new File(
+                event.getFileId(),
+                event.getFileName(),
+                event.getFileData(),
+                FileContentType.fromExtension(event.getFileType()),
+                event.getOwnerId()
+        );
     }
 
     @EventSourcingHandler
     public void on(FileUpdatedEvent event) {
-        this.file = File.builder()
-                .data(event.getFileData())
-                .name(event.getFileName())
-                .contentType(FileContentType.fromExtension(event.getFileType()))
-                .ownerId(event.getOwnerId())
-                .build();
+        this.file = new File(
+                event.getFileId(),
+                event.getFileName(),
+                event.getFileData(),
+                FileContentType.fromExtension(event.getFileType()),
+                event.getOwnerId()
+        );
     }
 
     @EventSourcingHandler

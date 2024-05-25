@@ -52,12 +52,13 @@ public enum FileContentType {
         this.extension = extension;
     }
 
-    public static FileContentType fromExtension(String extension) {
+    public static FileContentType fromExtension(String metadata) {
         for (FileContentType type : values()) {
-            if (type.getExtension().equalsIgnoreCase(extension)) {
+            if (type.getContentType().equalsIgnoreCase(metadata) || type.getExtension().equalsIgnoreCase(metadata)) {
                 return type;
             }
         }
-        throw new IllegalArgumentException("Unknown file extension: " + extension);
+        throw new IllegalArgumentException("Unknown file data: " + metadata);
     }
+
 }

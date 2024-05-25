@@ -21,12 +21,13 @@ public class FileEventHandler {
 
     @EventHandler
     public void on(FileUploadedEvent event) {
-        var file = File.builder()
-                .data(event.getFileData())
-                .name(event.getFileName())
-                .contentType(FileContentType.fromExtension(event.getFileType()))
-                .ownerId(event.getOwnerId())
-                .build();
+        var file = new File(
+                event.getFileId(),
+                event.getFileName(),
+                event.getFileData(),
+                FileContentType.fromExtension(event.getFileType()),
+                event.getOwnerId()
+        );
 
         fileRepository.save(file);
     }
@@ -37,13 +38,13 @@ public class FileEventHandler {
             throw new ExceptionWithErrorCode("File not found", 404);
         }
 
-        var file = File.builder()
-                .id(event.getFileId())
-                .data(event.getFileData())
-                .name(event.getFileName())
-                .contentType(FileContentType.fromExtension(event.getFileType()))
-                .ownerId(event.getOwnerId())
-                .build();
+        var file = new File(
+                event.getFileId(),
+                event.getFileName(),
+                event.getFileData(),
+                FileContentType.fromExtension(event.getFileType()),
+                event.getOwnerId()
+        );
 
         fileRepository.save(file);
     }

@@ -3,8 +3,10 @@ package com.aburakkontas.manga_cdn.api.controllers;
 import com.aburakkontas.manga.common.main.commands.DeleteFileCommand;
 import com.aburakkontas.manga.common.main.commands.SaveFileCommand;
 import com.aburakkontas.manga.common.main.commands.UpdateFileCommand;
+import com.aburakkontas.manga_cdn.contracts.response.SaveFileResponse;
 import com.aburakkontas.manga_cdn.domain.primitives.Result;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,8 @@ public class FileCommandController {
     }
 
 
-    @PostMapping("/upload")
-    public ResponseEntity<Result<String>> uploadFile(@RequestParam("file") MultipartFile file, Authentication authentication) throws IOException {
+    @PostMapping(value = "/upload")
+    public ResponseEntity<Result<SaveFileResponse>> uploadFile(@RequestParam("file") MultipartFile file, Authentication authentication) throws IOException {
         var ownerId = authentication.getCredentials();
 
         var command = new SaveFileCommand(
@@ -36,8 +38,17 @@ public class FileCommandController {
                 UUID.fromString(ownerId.toString())
         );
 
-        String id = commandGateway.sendAndWait(command);
-        return ResponseEntity.ok(Result.success(id));
+        UUID id = commandGateway.sendAndWait(command);
+
+        var response = new SaveFileResponse(
+                id,
+                file.getOriginalFilename(),
+                file.getContentType(),
+                file.getSize(),
+                "http://localhost:8088/cdn/api/v1/file/get/" + id
+        );
+
+        return ResponseEntity.ok(Result.success(response));
     }
 
     @PutMapping("/update/{id}")
