@@ -5,6 +5,10 @@ import com.aburakkontas.manga.common.main.commands.SaveFileCommand;
 import com.aburakkontas.manga.common.main.commands.UpdateFileCommand;
 import com.aburakkontas.manga_cdn.contracts.response.SaveFileResponse;
 import com.aburakkontas.manga_cdn.domain.primitives.Result;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +29,20 @@ public class FileCommandController {
         this.commandGateway = commandGateway;
     }
 
-
+    @Operation(
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "File to be processed",
+                content = @Content(
+                        mediaType = "multipart/form-data",
+                        schema = @Schema(type = "string", format = "binary")
+                )
+        )
+    )
     @PostMapping(value = "/upload")
-    public ResponseEntity<Result<SaveFileResponse>> uploadFile(@RequestParam("file") MultipartFile file, Authentication authentication) throws IOException {
+    public ResponseEntity<Result<SaveFileResponse>> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            Authentication authentication
+    ) throws IOException {
         var ownerId = authentication.getCredentials();
 
         var command = new SaveFileCommand(
@@ -51,8 +66,21 @@ public class FileCommandController {
         return ResponseEntity.ok(Result.success(response));
     }
 
+    @Operation(
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "File to be processed",
+                content = @Content(
+                        mediaType = "multipart/form-data",
+                        schema = @Schema(type = "string", format = "binary")
+                )
+        )
+    )
     @PutMapping("/update/{id}")
-    public ResponseEntity<Result<String>> updateFile(@PathVariable UUID id, @RequestParam("file") MultipartFile file, Authentication authentication) throws IOException {
+    public ResponseEntity<Result<String>> updateFile(
+            @PathVariable UUID id,
+            @RequestParam("file") MultipartFile file,
+            Authentication authentication
+    ) throws IOException {
         var ownerId = authentication.getCredentials();
 
         var command = new UpdateFileCommand(
@@ -67,8 +95,21 @@ public class FileCommandController {
         return ResponseEntity.ok(Result.success(id.toString()));
     }
 
+    @Operation(
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "File to be processed",
+                content = @Content(
+                        mediaType = "multipart/form-data",
+                        schema = @Schema(type = "string", format = "binary")
+                )
+        )
+    )
     @PutMapping("/update/{ownerId}/{id}")
-    public ResponseEntity<Result<String>> updateFile(@PathVariable UUID ownerId, @PathVariable UUID id, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<Result<String>> updateFile(
+            @PathVariable UUID ownerId,
+            @PathVariable UUID id,
+            @RequestParam("file") MultipartFile file
+    ) throws IOException {
         var command = new UpdateFileCommand(
                 id,
                 file.getOriginalFilename(),

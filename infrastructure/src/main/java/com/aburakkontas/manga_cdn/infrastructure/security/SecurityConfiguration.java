@@ -48,7 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfiguration {
                         ).permitAll()
                         .requestMatchers(
                                 "/api/v1/file/update/{ownerId}/{id}",
-                                "/api/v1/file/delete/{ownerId}/{id}"
+                                "/api/v1/file/delete/{ownerId}/{id}",
+                                "/api/v1/file/get/all/admin"
                                 ).hasAuthority("Admin")
                         .requestMatchers("/api/v1/file/get/{id}").permitAll()
                         .anyRequest().authenticated()

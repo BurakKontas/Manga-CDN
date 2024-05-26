@@ -2,6 +2,7 @@ package com.aburakkontas.manga_cdn.api.controllers;
 
 import com.aburakkontas.manga.common.main.queries.GetFileDetailsQuery;
 import com.aburakkontas.manga.common.main.queries.GetFileQuery;
+import com.aburakkontas.manga.common.main.queries.GetFilesQuery;
 import com.aburakkontas.manga.common.main.queries.results.GetFileDetailsQueryResult;
 import com.aburakkontas.manga.common.main.queries.results.GetFileQueryResult;
 import com.aburakkontas.manga.common.main.queries.results.GetFilesQueryResult;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 @RestController
@@ -55,7 +57,39 @@ public class FileQueryController {
     public ResponseEntity<Result<FileResponse[]>> getFilesDetailed(@RequestParam(required = false, defaultValue = "png") FileContentType contentType, Authentication authentication) {
         var ownerId = UUID.fromString(authentication.getCredentials().toString());
 
-        var query = new GetFileDetailsQuery(null, ownerId);
+        var query = new GetFilesQuery(contentType.getExtension(), ownerId);
+
+        var result = queryGateway.query(query, GetFilesQueryResult.class).join();
+
+        var response = new FileResponse[result.getFiles().size()];
+
+        for (var file : result.getFiles()) {
+            response[result.getFiles().indexOf(file)] = getFileDetails(file);
+        }
+
+        return ResponseEntity.ok(Result.success(response));
+    }
+
+    @GetMapping("/get/all")
+    public ResponseEntity<Result<FileResponse[]>> getAll(Authentication authentication) {
+        var ownerId = UUID.fromString(authentication.getCredentials().toString());
+
+        var query = new GetFilesQuery(null, ownerId);
+
+        var result = queryGateway.query(query, GetFilesQueryResult.class).join();
+
+        var response = new FileResponse[result.getFiles().size()];
+
+        for (var file : result.getFiles()) {
+            response[result.getFiles().indexOf(file)] = getFileDetails(file);
+        }
+
+        return ResponseEntity.ok(Result.success(response));
+    }
+
+    @GetMapping("/get/all/admin")
+    public ResponseEntity<Result<FileResponse[]>> getAllAdmin() {
+        var query = new GetFilesQuery(null, null);
 
         var result = queryGateway.query(query, GetFilesQueryResult.class).join();
 
