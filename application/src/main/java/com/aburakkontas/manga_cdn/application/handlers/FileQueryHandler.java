@@ -1,11 +1,11 @@
 package com.aburakkontas.manga_cdn.application.handlers;
 
-import com.aburakkontas.manga.common.main.queries.GetFileDetailsQuery;
-import com.aburakkontas.manga.common.main.queries.GetFileQuery;
-import com.aburakkontas.manga.common.main.queries.GetFilesQuery;
-import com.aburakkontas.manga.common.main.queries.results.GetFileDetailsQueryResult;
-import com.aburakkontas.manga.common.main.queries.results.GetFileQueryResult;
-import com.aburakkontas.manga.common.main.queries.results.GetFilesQueryResult;
+import com.aburakkontas.manga.common.cdn.queries.GetFileDetailsQuery;
+import com.aburakkontas.manga.common.cdn.queries.GetFileQuery;
+import com.aburakkontas.manga.common.cdn.queries.GetFilesQuery;
+import com.aburakkontas.manga.common.cdn.queries.results.GetFileDetailsQueryResult;
+import com.aburakkontas.manga.common.cdn.queries.results.GetFileQueryResult;
+import com.aburakkontas.manga.common.cdn.queries.results.GetFilesQueryResult;
 import com.aburakkontas.manga_cdn.domain.exceptions.ExceptionWithErrorCode;
 import com.aburakkontas.manga_cdn.domain.file.File;
 import com.aburakkontas.manga_cdn.domain.file.FileContentType;

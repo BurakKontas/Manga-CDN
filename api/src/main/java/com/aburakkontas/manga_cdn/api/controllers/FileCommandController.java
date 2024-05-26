@@ -1,8 +1,8 @@
 package com.aburakkontas.manga_cdn.api.controllers;
 
-import com.aburakkontas.manga.common.main.commands.DeleteFileCommand;
-import com.aburakkontas.manga.common.main.commands.SaveFileCommand;
-import com.aburakkontas.manga.common.main.commands.UpdateFileCommand;
+import com.aburakkontas.manga.common.cdn.commands.DeleteFileCommand;
+import com.aburakkontas.manga.common.cdn.commands.SaveFileCommand;
+import com.aburakkontas.manga.common.cdn.commands.UpdateFileCommand;
 import com.aburakkontas.manga_cdn.contracts.response.SaveFileResponse;
 import com.aburakkontas.manga_cdn.domain.primitives.Result;
 import io.swagger.v3.oas.annotations.Operation;

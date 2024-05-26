@@ -1,11 +1,11 @@
 package com.aburakkontas.manga_cdn.application.aggregates;
 
-import com.aburakkontas.manga.common.main.commands.DeleteFileCommand;
-import com.aburakkontas.manga.common.main.commands.SaveFileCommand;
-import com.aburakkontas.manga.common.main.commands.UpdateFileCommand;
-import com.aburakkontas.manga.common.main.events.FileDeletedEvent;
-import com.aburakkontas.manga.common.main.events.FileUpdatedEvent;
-import com.aburakkontas.manga.common.main.events.FileUploadedEvent;
+import com.aburakkontas.manga.common.cdn.commands.DeleteFileCommand;
+import com.aburakkontas.manga.common.cdn.commands.SaveFileCommand;
+import com.aburakkontas.manga.common.cdn.commands.UpdateFileCommand;
+import com.aburakkontas.manga.common.cdn.events.FileDeletedEvent;
+import com.aburakkontas.manga.common.cdn.events.FileUpdatedEvent;
+import com.aburakkontas.manga.common.cdn.events.FileUploadedEvent;
 import com.aburakkontas.manga_cdn.domain.file.File;
 import com.aburakkontas.manga_cdn.domain.file.FileContentType;
 import lombok.NoArgsConstructor;
