@@ -1,4 +1,4 @@
-package com.aburakkontas.manga_cdn.domain.file;
+package com.aburakkontas.manga_cdn.domain.entities.file;
 
 
 import lombok.Getter;

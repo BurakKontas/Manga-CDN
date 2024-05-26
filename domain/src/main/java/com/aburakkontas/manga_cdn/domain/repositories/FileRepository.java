@@ -1,7 +1,7 @@
 package com.aburakkontas.manga_cdn.domain.repositories;
 
-import com.aburakkontas.manga_cdn.domain.file.File;
-import com.aburakkontas.manga_cdn.domain.file.FileContentType;
+import com.aburakkontas.manga_cdn.domain.entities.file.File;
+import com.aburakkontas.manga_cdn.domain.entities.file.FileContentType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

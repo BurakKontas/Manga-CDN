@@ -7,7 +7,7 @@ import com.aburakkontas.manga.common.cdn.queries.results.GetFileDetailsQueryResu
 import com.aburakkontas.manga.common.cdn.queries.results.GetFileQueryResult;
 import com.aburakkontas.manga.common.cdn.queries.results.GetFilesQueryResult;
 import com.aburakkontas.manga_cdn.contracts.response.FileResponse;
-import com.aburakkontas.manga_cdn.domain.file.FileContentType;
+import com.aburakkontas.manga_cdn.domain.entities.file.FileContentType;
 import com.aburakkontas.manga_cdn.domain.primitives.Result;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.http.MediaType;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 @RestController

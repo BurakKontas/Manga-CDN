@@ -1,12 +1,9 @@
-package com.aburakkontas.manga_cdn.domain.file;
+package com.aburakkontas.manga_cdn.domain.entities.file;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.UUID;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;

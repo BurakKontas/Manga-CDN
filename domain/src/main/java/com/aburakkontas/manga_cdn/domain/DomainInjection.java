@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EntityScan({
-    "com.aburakkontas.manga_cdn.domain",
+    "com.aburakkontas.manga_cdn.domain.entities",
     "org.axonframework"
 })
 public class DomainInjection {

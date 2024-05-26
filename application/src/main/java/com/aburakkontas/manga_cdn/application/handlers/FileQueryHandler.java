@@ -7,14 +7,13 @@ import com.aburakkontas.manga.common.cdn.queries.results.GetFileDetailsQueryResu
 import com.aburakkontas.manga.common.cdn.queries.results.GetFileQueryResult;
 import com.aburakkontas.manga.common.cdn.queries.results.GetFilesQueryResult;
 import com.aburakkontas.manga_cdn.domain.exceptions.ExceptionWithErrorCode;
-import com.aburakkontas.manga_cdn.domain.file.File;
-import com.aburakkontas.manga_cdn.domain.file.FileContentType;
+import com.aburakkontas.manga_cdn.domain.entities.file.File;
+import com.aburakkontas.manga_cdn.domain.entities.file.FileContentType;
 import com.aburakkontas.manga_cdn.domain.repositories.FileRepository;
 import lombok.AllArgsConstructor;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
