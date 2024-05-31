@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "/api/v1/file")
 public class FileCommandController {
+
+    @Value("${file.get.url}")
+    private String fileGetUrl;
 
     private CommandGateway commandGateway;
 
@@ -60,7 +64,7 @@ public class FileCommandController {
                 file.getOriginalFilename(),
                 file.getContentType(),
                 file.getSize(),
-                "http://localhost:8088/cdn/api/v1/file/get/" + id
+                fileGetUrl + id
         );
 
         return ResponseEntity.ok(Result.success(response));
